@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.SourceSetContainer
+
 plugins {
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
@@ -26,4 +28,14 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+val mainSourceSet = the<SourceSetContainer>().named("main")
+
+tasks.register<JavaExec>("runSemaphoreLimitedConcurrency") {
+    group = "virtual thread demos"
+    description = "Runs the semaphore-limited virtual thread sample."
+    mainClass.set("com.example.virtualthreads.semaphore.SemaphoreLimitedConcurrencyDemo")
+    classpath = mainSourceSet.get().runtimeClasspath
+    // Virtual threads are a preview feature in Java 21, but no extra flags required here.
 }

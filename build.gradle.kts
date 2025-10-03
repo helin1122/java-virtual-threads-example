@@ -39,3 +39,10 @@ tasks.register<JavaExec>("runSemaphoreLimitedConcurrency") {
     classpath = mainSourceSet.get().runtimeClasspath
     // Virtual threads are a preview feature in Java 21, but no extra flags required here.
 }
+
+tasks.register<JavaExec>("runFanoutPattern") {
+    group = "virtual thread demos"
+    description = "Runs the fanout pattern comparison demo."
+    mainClass.set("com.example.virtualthreads.fanout.FanoutPatternDemo")
+    classpath = mainSourceSet.get().runtimeClasspath
+}

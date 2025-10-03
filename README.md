@@ -9,7 +9,7 @@ java -cp build/classes/java/main com.example.virtualthreads.throughput.HighThrou
 ```
 
 
-# Semaphore-Limited Virtual Threads Demo
+# Use Semaphore to limit virtual threads concurrency
 
 Run it with `./gradlew runSemaphoreLimitedConcurrency`
 
@@ -17,3 +17,5 @@ This sample demonstrates capping a burst of virtual threads by wrapping submissi
 
 
 
+# Fanout pattern demo
+Run it with `./gradlew runFanoutPattern`

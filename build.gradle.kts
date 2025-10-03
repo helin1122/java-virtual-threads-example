@@ -32,6 +32,14 @@ tasks.withType<Test> {
 
 val mainSourceSet = the<SourceSetContainer>().named("main")
 
+tasks.register<JavaExec>("runHighThroughputComparison") {
+    group = "virtual thread demos"
+    description = "Runs the high-throughput virtual thread sample."
+    mainClass.set("com.example.virtualthreads.throughput.HighThroughputComparison")
+    classpath = mainSourceSet.get().runtimeClasspath
+    // Virtual threads are a preview feature in Java 21, but no extra flags required here.
+}
+
 tasks.register<JavaExec>("runSemaphoreLimitedConcurrency") {
     group = "virtual thread demos"
     description = "Runs the semaphore-limited virtual thread sample."

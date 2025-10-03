@@ -10,19 +10,23 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+
 /**
  * Demonstrates throughput differences between platform and virtual threads when
  * simulating I/O bound API calls.
  */
+@Slf4j
 public final class HighThroughputComparison {
-
     private static final int TOTAL_REQUESTS = 1_000;
     private static final Duration API_LATENCY = Duration.ofMillis(200);
 
     private HighThroughputComparison() {}
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.printf("Simulating %d API calls with ~%d ms latency.%n", TOTAL_REQUESTS, API_LATENCY.toMillis());
+        log.info("Simulating {} API calls with ~{} ms latency.", TOTAL_REQUESTS, API_LATENCY.toMillis());
         runScenario(
                 "Platform thread pool",
                 () -> Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2));
@@ -38,8 +42,8 @@ public final class HighThroughputComparison {
                         simulateApiCall();
                         long durationMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - taskStart);
                         if (index % 200 == 0) {
-                            System.out.printf(
-                                    "[%s] Request %d finished in %d ms on %s%n",
+                            log.info(
+                                    "[{}] Request {} finished in {} ms on {}",
                                     label,
                                     index,
                                     durationMs,
@@ -53,11 +57,11 @@ public final class HighThroughputComparison {
         Duration totalTime = Duration.between(start, Instant.now());
         double totalSeconds = totalTime.toMillis() / 1_000d;
         double throughput = TOTAL_REQUESTS / totalSeconds;
-        System.out.printf(
-                "%s completed in %d ms (%.2f requests/sec)%n%n",
+        log.info(
+                "{} completed in {} ms ({} requests/sec)",
                 label,
                 totalTime.toMillis(),
-                throughput);
+                String.format("%.2f", throughput));
     }
 
     private static void simulateApiCall() throws InterruptedException {

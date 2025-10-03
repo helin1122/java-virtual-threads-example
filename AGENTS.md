@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Work under `src/main/java` for production code and `src/test/java` for demos and baseline assertions. Group each virtual-thread scenario in its own package (for example, `com.example.virtualthreads.scheduling`). Keep helper scripts in `scripts/` and background notes or UML sketches inside `docs/` so the project root remains minimal and newcomers can see the examples instantly.
+Work under `src/main/java` for production code and `src/test/java` for demos and baseline assertions. Group each virtual-thread scenario in its own package (for example, `com.example.virtualthreads.scheduling`). Keep helper scripts in `scripts/` and background notes or UML sketches inside `docs/` so the project root remains minimal and newcomers can see the examples instantly. I use gradle as build tool and write gradle files with Kotlin.
 
 ## Experiment Workflow
 Start new explorations from a small `Main` class that prints thread names and timing details. Capture interesting scheduler behavior with lightweight logging before introducing frameworks. When experimenting with structured concurrency, save intermediate experiments under `sandbox/` and move polished versions into `src/main/java` once the API shape is stable. Document any JVM flags you toggled in a short README snippet within the package.

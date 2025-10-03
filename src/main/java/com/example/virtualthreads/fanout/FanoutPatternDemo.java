@@ -23,16 +23,6 @@ import java.util.stream.IntStream;
  * parallel calls to different services) and aggregating the results. Virtual threads
  * make this pattern extremely efficient by allowing one thread per task without
  * resource overhead.
- *
- * KEY DIFFERENCES:
- * - Platform threads: 100 requests each fanout to 4 services = 400 concurrent operations
- *   Limited to 200 threads in the fanout pool, causing queuing and slower execution
- * - Virtual threads: Same 400 concurrent operations but no thread pool limits
- *   All operations can run truly concurrently without waiting for thread availability
- *
- * With 100 requests × 4 fanout operations = 400 total operations:
- * - Platform pool (200 threads): Operations must queue when pool is full
- * - Virtual threads (unlimited): All 400 operations can run immediately
  */
 public final class FanoutPatternDemo {
     private static final Logger log = Logger.getLogger(FanoutPatternDemo.class.getName());

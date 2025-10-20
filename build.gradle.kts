@@ -15,14 +15,24 @@ java {
     }
 }
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("--enable-preview")
+}
 
+tasks.withType<JavaExec> {
+    jvmArgs("--enable-preview")
+}
+
+tasks.withType<Test> {
+    jvmArgs("--enable-preview")
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -31,26 +41,3 @@ tasks.withType<Test> {
 }
 
 val mainSourceSet = the<SourceSetContainer>().named("main")
-
-tasks.register<JavaExec>("runHighThroughputComparison") {
-    group = "virtual thread demos"
-    description = "Runs the high-throughput virtual thread sample."
-    mainClass.set("com.example.virtualthreads.throughput.HighThroughputComparison")
-    classpath = mainSourceSet.get().runtimeClasspath
-    // Virtual threads are a preview feature in Java 21, but no extra flags required here.
-}
-
-tasks.register<JavaExec>("runSemaphoreLimitedConcurrency") {
-    group = "virtual thread demos"
-    description = "Runs the semaphore-limited virtual thread sample."
-    mainClass.set("com.example.virtualthreads.semaphore.SemaphoreLimitedConcurrencyDemo")
-    classpath = mainSourceSet.get().runtimeClasspath
-    // Virtual threads are a preview feature in Java 21, but no extra flags required here.
-}
-
-tasks.register<JavaExec>("runFanoutPattern") {
-    group = "virtual thread demos"
-    description = "Runs the fanout pattern comparison demo."
-    mainClass.set("com.example.virtualthreads.fanout.FanoutPatternDemo")
-    classpath = mainSourceSet.get().runtimeClasspath
-}

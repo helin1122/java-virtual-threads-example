@@ -1,4 +1,4 @@
-package com.example.virtualthreads.throughput;
+package com.example.virtualthreads;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -15,14 +15,14 @@ import java.util.stream.IntStream;
  * Demonstrates throughput differences between platform and virtual threads when simulating I/O
  * bound API calls.
  */
-public final class HighThroughputComparison {
+class BasicUse {
   private static final int TOTAL_REQUESTS = 1_000;
   private static final Duration API_LATENCY = Duration.ofMillis(200);
-  private static final Logger log = Logger.getLogger(HighThroughputComparison.class.getName());
+  private static final Logger log = Logger.getLogger(BasicUse.class.getName());
 
-  private HighThroughputComparison() {}
+  private BasicUse() {}
 
-  public static void main(String[] args) throws InterruptedException {
+  void main() throws InterruptedException {
     log.info(
         String.format(
             "Simulating %d API calls with ~%d ms latency.",

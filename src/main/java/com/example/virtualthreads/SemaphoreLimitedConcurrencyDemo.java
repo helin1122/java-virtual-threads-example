@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /** Demonstrates limiting the concurrency of virtual threads with a Semaphore. */
 class SemaphoreLimitedConcurrencyDemo {
 
-  private static final int TOTAL_TASKS = 5_000;
-  private static final int MAX_CONCURRENCY = 1_000;
+  private static final int TOTAL_TASKS = 1000;
+  private static final int MAX_CONCURRENCY = 10;
   private static final Duration SIMULATED_WORK = Duration.ofMillis(10);
 
   private SemaphoreLimitedConcurrencyDemo() {

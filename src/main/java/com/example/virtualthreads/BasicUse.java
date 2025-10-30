@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
@@ -22,7 +23,7 @@ class BasicUse {
 
   private BasicUse() {}
 
-  void main() throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException {
     log.info(
         String.format(
             "Simulating %d API calls with ~%d ms latency.",
@@ -48,7 +49,8 @@ class BasicUse {
                             long durationMs =
                                 TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - taskStart);
                             if (index % 200 == 0) {
-                              log.info(
+                              log.log(
+                                  Level.FINEST,
                                   String.format(
                                       "[%s] Request %d finished in %d ms on %s",
                                       label, index, durationMs, Thread.currentThread()));
